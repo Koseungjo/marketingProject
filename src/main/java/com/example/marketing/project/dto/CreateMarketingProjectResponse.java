@@ -11,9 +11,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateMarketingProjectResponse {
+    private Long projectId;
     private String projectName;
 
     public CreateMarketingProjectResponse(MarketingProject marketingProject){
+        this.projectId = marketingProject.getProjectId();
         this.projectName = marketingProject.getProjectName();
+    }
+
+    public static CreateMarketingProjectResponse of(MarketingProject marketingProject){
+        return new CreateMarketingProjectResponse(marketingProject);
     }
 }

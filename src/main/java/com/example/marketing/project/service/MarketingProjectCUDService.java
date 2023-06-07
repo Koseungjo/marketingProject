@@ -2,6 +2,7 @@ package com.example.marketing.project.service;
 
 import com.example.marketing.project.dto.*;
 import com.example.marketing.project.entity.MarketingProject;
+import com.example.marketing.project.global.ResponseCodeEnum;
 import com.example.marketing.project.repository.MarketingProjectRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,22 +21,21 @@ import java.util.stream.Collectors;
 public class MarketingProjectCUDService {
 
     private final MarketingProjectRepository marketingProjectRepository;
-    public CreateMarketingProjectResponse createMarketingProject(CreateMarketingProjectRequest request) {
+    public ResponseDTO createMarketingProject(CreateMarketingProjectRequest request) {
         MarketingProject entity = MarketingProject.toEntity(request);
-        return new CreateMarketingProjectResponse(marketingProjectRepository.save(entity));
+        entity = marketingProjectRepository.save(entity);
+        return ResponseDTO.success(ResponseCodeEnum.CREATED.getCode(),ResponseCodeEnum.CREATED.getMessage(), CreateMarketingProjectResponse.of(entity));
     }
 
-
-    public MarketingProjectResponseList getMarketingProjectList(MarketingProjectSearchRequest request, Pageable pageable) {
-        List<MarketingProject> entityList = marketingProjectRepository.findAllByProjectNameAndStatus(pageable, request.getProjectName(), request.getStatus());
-        List<MarketingProjectResponse> responses = entityList.stream().map(MarketingProjectResponse::new).collect(Collectors.toList());
-        return MarketingProjectResponseList.create(responses);
-    }
-
-    public MarketingProjectDetailResponse getMarketingProjectDetail(Long id) {
-        MarketingProject entity = marketingProjectRepository.findByProjectId(id).orElseThrow(
-                () -> new NoSuchElementException("존재하지 않는 프로젝트 입니다.")
-        );
-        return MarketingProjectDetailResponse.toDto(entity);
-    }
+//    public ResponseDTO<MarketingProjectDetailResponse> startMarketingProject(Long id) {
+//        MarketingProject marketingProject = marketingProjectRepository.findByProjectIdAndStatus(id).orElse(null);
+//
+//        if (marketingProject == null)
+//            return ResponseDTO.fail(ResponseCodeEnum.BAD_REQUEST.getCode(), ResponseCodeEnum.BAD_REQUEST.getMessage());
+//
+//        marketingProject.startProject();
+//
+//        return ResponseDTO.success(ResponseCodeEnum.OK.getCode(), ResponseCodeEnum.OK.getMessage(), MarketingProjectDetailResponse.toDto(marketingProject));
+//
+//    }
 }

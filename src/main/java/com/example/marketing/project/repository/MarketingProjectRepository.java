@@ -1,6 +1,7 @@
 package com.example.marketing.project.repository;
 
 import com.example.marketing.project.entity.MarketingProject;
+import jakarta.persistence.Id;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,6 @@ public interface MarketingProjectRepository extends JpaRepository<MarketingProje
 
 
     Optional<MarketingProject> findByProjectId(Long id);
+
+//    Optional<MarketingProject> findByProjectIdAndStatus(Long id);
 }

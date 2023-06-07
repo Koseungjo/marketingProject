@@ -49,4 +49,8 @@ public class MarketingProject {
                 .status(MarketingProjectEnum.WAITING.getStatus())
                 .build();
     }
+
+    public void startProject() {
+        this.startDate = LocalDateTime.now();
+    }
 }

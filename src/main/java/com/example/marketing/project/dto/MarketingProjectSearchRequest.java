@@ -11,6 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MarketingProjectSearchRequest {
     private String projectName;
-    private String status = "A";
+    private String status;
 
 }

@@ -13,10 +13,9 @@ public interface MarketingProjectRepository extends JpaRepository<MarketingProje
 
     @Query("SELECT mp FROM MarketingProject mp " +
             "WHERE 1=1 " +
-            "AND (:projectName = '' OR mp.projectName LIKE CONCAT('%', :projectName, '%')) " +
-            "AND (:status = 'A' OR mp.status = :status)")
+            "AND (:projectName = '' or mp.projectName LIKE CONCAT('%', :projectName, '%')) " +
+            "AND (:status = '' OR :status = 'A' or mp.status = :status)")
     List<MarketingProject> findAllByProjectNameAndStatus(Pageable pageable, String projectName, String status);
-
 
     Optional<MarketingProject> findByProjectId(Long id);
 

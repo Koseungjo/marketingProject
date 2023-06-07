@@ -18,8 +18,7 @@ public interface MarketingProjectRepository extends JpaRepository<MarketingProje
     List<MarketingProject> findAllByProjectNameAndStatus(Pageable pageable, String projectName, String status);
 
 
-
     Optional<MarketingProject> findByProjectId(Long id);
 
-//    Optional<MarketingProject> findByProjectIdAndStatus(Long id);
+    Optional<MarketingProject> findByProjectIdAndStatus(Long id, String status);
 }

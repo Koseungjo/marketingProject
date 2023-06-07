@@ -7,7 +7,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class MarketingProjectResponseList {
     private List<MarketingProjectResponse> marketingProjectResponseList;
@@ -15,7 +14,7 @@ public class MarketingProjectResponseList {
     private MarketingProjectResponseList(List<MarketingProjectResponse> responses) {
         this.marketingProjectResponseList = responses;
     }
-    public static MarketingProjectResponseList create(List<MarketingProjectResponse> responses) {
+    public static MarketingProjectResponseList of(List<MarketingProjectResponse> responses) {
         return new MarketingProjectResponseList(responses);
     }
 }

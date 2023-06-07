@@ -51,6 +51,14 @@ public class MarketingProject {
     }
 
     public void startProject() {
+        this.status = MarketingProjectEnum.IN_PROGRESS.getStatus();
         this.startDate = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void endProject() {
+        this.status = MarketingProjectEnum.COMPLETED.getStatus();
+        this.endDate = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }

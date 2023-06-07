@@ -1,30 +1,38 @@
 package com.example.marketing.project.dto;
 
+import com.example.marketing.project.global.ResponseCodeEnum;
 import lombok.Getter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 public class ResponseDTO<T> {
-    private String code;
-    private String message;
+    private Map<String, String> status;
     private T data;
 
-    public ResponseDTO(String code, String message, T data) {
-        this.code = code;
-        this.message = message;
+    private ResponseDTO(Map<String,String> status, T data) {
+        this.status = status;
         this.data = data;
     }
 
-    public ResponseDTO(String code, String message) {
-        this.code = code;
-        this.message = message;
+    private ResponseDTO(Map<String,String> status) {
+       this.status = status;
     }
 
-    public static <T> ResponseDTO<T> success(String code, String message, T data) {
-        return new ResponseDTO<>(code, message, data);
+    public static <T> ResponseDTO<T> ok(T data) {
+        Map<String,String> status = createSuccessStatus();
+        return new ResponseDTO<>(status, data);
     }
 
-    public static <T> ResponseDTO<T> fail(String code, String message) {
-        return new ResponseDTO<>(code, message);
+    public static <T> ResponseDTO<T> ok(Map<String, String> status) {
+        return new ResponseDTO<>(status);
+    }
 
+    private static Map<String, String> createSuccessStatus(){
+        Map<String,String> status = new HashMap<>();
+        status.put("code", ResponseCodeEnum.OK.getCode());
+        status.put("message", ResponseCodeEnum.OK.getMessage());
+        return status;
     }
 }

@@ -21,17 +21,17 @@ public class MarketingProjectReadService {
     private final MarketingProjectRepository marketingProjectRepository;
 
     public ResponseDTO getMarketingProjectList(MarketingProjectSearchRequest request, Pageable pageable) {
-        List<MarketingProject> entityList = marketingProjectRepository.findAllByProjectNameAndStatus(pageable, request.getProjectName(), request.getStatus());
-        List<MarketingProjectResponse> responses = entityList.stream().map(MarketingProjectResponse::new).collect(Collectors.toList());
-        return ResponseDTO.success(ResponseCodeEnum.OK.getCode(),ResponseCodeEnum.OK.getMessage(), responses);
+        List<MarketingProject> marketingProjectList = marketingProjectRepository.findAllByProjectNameAndStatus(pageable, request.getProjectName(), request.getStatus());
+        List<MarketingProjectResponse> responses = marketingProjectList.stream().map(item -> MarketingProjectResponse.of(item)).collect(Collectors.toList());
+        return ResponseDTO.ok(responses);
     }
 
-    public ResponseDTO getMarketingProjectDetail(Long id) {
-        MarketingProject entity = marketingProjectRepository.findByProjectId(id).orElse(null);
+    public ResponseDTO getMarketingProjectDetail(Long projectId) {
+        MarketingProject marketingProject = marketingProjectRepository.findByProjectId(projectId).orElse(null);
 
-        if (entity == null)
-            return ResponseDTO.fail(ResponseCodeEnum.BAD_REQUEST.getCode(), ResponseCodeEnum.BAD_REQUEST.getMessage());
+        if (marketingProject == null)
+            throw new NoSuchElementException("존재하지 않는 프로젝트 입니다.");
 
-        return ResponseDTO.success(ResponseCodeEnum.OK.getCode(),ResponseCodeEnum.OK.getMessage(), MarketingProjectDetailResponse.toDto(entity));
+        return ResponseDTO.ok(MarketingProjectDetailResponse.of(marketingProject));
     }
 }

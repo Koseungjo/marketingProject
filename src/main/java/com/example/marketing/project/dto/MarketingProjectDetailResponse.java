@@ -6,8 +6,6 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class MarketingProjectDetailResponse {
@@ -17,13 +15,15 @@ public class MarketingProjectDetailResponse {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public static MarketingProjectDetailResponse toDto(MarketingProject marketingProject){
-        return MarketingProjectDetailResponse.builder()
-                .projectName(marketingProject.getProjectName())
-                .content(marketingProject.getContent())
-                .status(marketingProject.getStatus())
-                .startDate(marketingProject.getStartDate())
-                .endDate(marketingProject.getEndDate())
-                .build();
+    private MarketingProjectDetailResponse(MarketingProject marketingProject) {
+       this.projectName = marketingProject.getProjectName();
+       this.content = marketingProject.getContent();
+       this.status = marketingProject.getStatus();
+       this.startDate = marketingProject.getStartDate();
+       this.endDate = marketingProject.getEndDate();
+    }
+
+    public static MarketingProjectDetailResponse of(MarketingProject marketingProject){
+        return new MarketingProjectDetailResponse(marketingProject);
     }
 }

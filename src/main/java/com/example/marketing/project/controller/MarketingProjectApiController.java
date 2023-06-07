@@ -13,31 +13,38 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/")
 public class MarketingProjectApiController {
     private final MarketingProjectCUDService marketingProjectCUDService;
     private final MarketingProjectReadService marketingProjectReadService;
 
-    @PostMapping("/marketingProject")
+    @PostMapping("/marketing/project")
     public ResponseEntity<ResponseDTO> createMarketingProject(@RequestBody CreateMarketingProjectRequest request){
         ResponseDTO<CreateMarketingProjectResponse> response = marketingProjectCUDService.createMarketingProject(request);
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/marketingProjects")
-    public ResponseEntity<ResponseDTO> getMarketingProjectList(@RequestBody MarketingProjectSearchRequest request, Pageable pageable){
+    @GetMapping("/marketing/projects")
+    public ResponseEntity<ResponseDTO> getMarketingProjectList(@ModelAttribute MarketingProjectSearchRequest request, Pageable pageable){
         ResponseDTO<MarketingProjectResponseList> response = marketingProjectReadService.getMarketingProjectList(request,pageable);
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/marketingProject/{id}")
-    public ResponseEntity<ResponseDTO> getMarketingProjectDetail(@PathVariable Long id){
-        ResponseDTO<MarketingProjectDetailResponse> response = marketingProjectReadService.getMarketingProjectDetail(id);
+    @GetMapping("/marketing/project/{projectId}")
+    public ResponseEntity<ResponseDTO> getMarketingProjectDetail(@PathVariable Long projectId){
+        ResponseDTO<MarketingProjectDetailResponse> response = marketingProjectReadService.getMarketingProjectDetail(projectId);
         return ResponseEntity.ok().body(response);
     }
 
-//    @PatchMapping("/marketingProject/{id}/start")
-//    public ResponseEntity<ResponseDTO> startMarketingProject(@PathVariable Long id){
-//        ResponseDTO<MarketingProjectDetailResponse> response = marketingProjectCUDService.startMarketingProject(id);
-//        return ResponseEntity.ok().body(response);
-//    }
+    @PatchMapping("/marketing/project/{projectId}/start")
+    public ResponseEntity<ResponseDTO> startMarketingProject(@PathVariable Long projectId){
+        ResponseDTO<MarketingProjectDetailResponse> response = marketingProjectCUDService.startMarketingProject(projectId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PatchMapping("/marketing/project/{projectId}/end")
+    public ResponseEntity<ResponseDTO> endMarketingProject(@PathVariable Long projectId){
+        ResponseDTO<MarketingProjectDetailResponse> response = marketingProjectCUDService.endMarketingProject(projectId);
+        return ResponseEntity.ok().body(response);
+    }
 }

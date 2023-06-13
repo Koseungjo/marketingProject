@@ -1,12 +1,10 @@
 package com.example.marketing.project.exception;
 
-import com.example.marketing.project.dto.ResponseDTO;
+import com.example.marketing.global.ResponseDTO;
 import com.example.marketing.project.global.ResponseCodeEnum;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

@@ -1,4 +1,4 @@
-package com.example.marketing.project.dto;
+package com.example.marketing.customer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MarketingProjectSearchRequest {
-    private String projectName;
+public class CustomerSearchRequest {
+    private String name;
     private String status;
+    private String gender;
+    private String email;
 }

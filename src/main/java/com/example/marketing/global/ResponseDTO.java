@@ -1,4 +1,4 @@
-package com.example.marketing.project.dto;
+package com.example.marketing.global;
 
 import com.example.marketing.project.global.ResponseCodeEnum;
 import lombok.Getter;

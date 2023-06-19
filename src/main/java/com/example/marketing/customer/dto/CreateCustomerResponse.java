@@ -12,8 +12,8 @@ public class CreateCustomerResponse {
 
 
     private CreateCustomerResponse(Customer customer){
-        this.id = customer.getId();
-        this.name = customer.getName();
+        this.id = customer.getCustomerId();
+        this.name = customer.getCustomerName();
         this.email = customer.getEmail();
     }
 

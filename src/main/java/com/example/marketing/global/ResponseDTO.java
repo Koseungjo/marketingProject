@@ -25,6 +25,11 @@ public class ResponseDTO<T> {
         return new ResponseDTO<>(status, data);
     }
 
+    public static <T> ResponseDTO<T> ok() {
+        Map<String,String> status = createSuccessStatus();
+        return new ResponseDTO<>(status);
+    }
+
     public static <T> ResponseDTO<T> ok(Map<String, String> status) {
         return new ResponseDTO<>(status);
     }

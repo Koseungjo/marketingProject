@@ -1,4 +1,4 @@
-package com.example.marketing.project.exception;
+package com.example.marketing.global;
 
 import com.example.marketing.global.ResponseDTO;
 import com.example.marketing.project.global.ResponseCodeEnum;

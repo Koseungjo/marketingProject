@@ -29,8 +29,8 @@ public class CustomerDetailResponse {
     private List<Coupon> coupons;
 
     private CustomerDetailResponse(Customer customer) {
-        this.id = customer.getId();
-        this.name = customer.getName();
+        this.id = customer.getCustomerId();
+        this.name = customer.getCustomerName();
         this.gender = customer.getGender();
         this.birthDate = customer.getBirthDate();
         this.email = customer.getEmail();

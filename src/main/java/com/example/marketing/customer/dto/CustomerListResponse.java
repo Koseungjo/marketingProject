@@ -9,7 +9,6 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class CustomerListResponse {
     private List<CustomerResponse> customerResponse;
 

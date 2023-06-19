@@ -12,7 +12,7 @@ public interface CustomerRepository extends JpaRepository<Customer,Long>{
 
     @Query("SELECT c FROM Customer c " +
             "WHERE 1=1 " +
-            "AND (:name = '' OR c.name LIKE CONCAT('%', :name, '%')) " +
+            "AND (:name = '' OR c.customerName LIKE CONCAT('%', :name, '%')) " +
             "AND (:email = '' OR c.email LIKE CONCAT('%', :email, '%')) " +
             "AND (:status = '' OR :status = '-1' OR c.status = :status) " +
             "AND (:gender = '' OR :gender = '-1' OR c.gender = :gender) " )

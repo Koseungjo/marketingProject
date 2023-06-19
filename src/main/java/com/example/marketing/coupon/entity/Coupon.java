@@ -5,6 +5,9 @@ import com.example.marketing.coupon.global.CouponStatus;
 import com.example.marketing.customer.dto.CreateCustomerRequest;
 import com.example.marketing.customer.entity.Customer;
 import com.example.marketing.customer.global.CustomerStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,10 +29,12 @@ public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "coupon_id")
-    private Long id;
+    private Long couponId;
 
-    @Column(name = "customer_id")
-    private Long customerId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    @JsonBackReference
+    private Customer customer;
 
     @Column(name = "coupon_name")
     private String couponName;
@@ -38,21 +43,14 @@ public class Coupon {
     private String status;
 
     @Column(name = "validity_period", nullable = false)
-    private LocalDate validityPeriod;
+    private LocalDate expirationDate;
 
-    @PrePersist
-    public void setDefaultValidityPeriod(int plusDay) {
-        if (validityPeriod == null) {
-            validityPeriod = LocalDate.now().plusDays(plusDay);
-        }
-    }
-
-    public static Coupon toEntity(String couponName, Long customerId, int ) {
+    public static Coupon toEntity(String couponName,Customer customer,int validityPeriod) {
         return Coupon.builder()
+                .customer(customer)
                 .couponName(couponName)
-                .customerId(customerId)
                 .status(CouponStatus.ACTIVE.getStatus())
-                .
+                .expirationDate(LocalDate.now().plusDays(validityPeriod))
                 .build();
     }
 

@@ -9,6 +9,6 @@ import java.util.List;
 public interface CouponRepository extends JpaRepository<Coupon,Long> {
 
     @Query("select c from Coupon c " +
-            "WHERE (:couponName = '' OR c.couponName LIKE CONCAT('%', :couponName, '%'))")
+            "WHERE (:couponName = '' OR c.name LIKE CONCAT('%', :couponName, '%'))")
     List<Coupon> findAllByCouponName(String couponName);
 }

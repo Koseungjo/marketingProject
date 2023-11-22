@@ -16,7 +16,7 @@ public class CouponListResponse {
         this.couponResponse = responses;
     }
 
-    public static CouponListResponse of(List<CouponResponse> responses){
+    public static CouponListResponse from(List<CouponResponse> responses){
         return new CouponListResponse(responses);
     }
 }

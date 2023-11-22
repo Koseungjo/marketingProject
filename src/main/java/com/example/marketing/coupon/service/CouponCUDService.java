@@ -1,5 +1,6 @@
 package com.example.marketing.coupon.service;
 
+import com.example.marketing.coupon.dto.CouponUpdateRequest;
 import com.example.marketing.coupon.dto.CreateCouponRequest;
 import com.example.marketing.coupon.entity.Coupon;
 import com.example.marketing.coupon.repository.CouponRepository;
@@ -22,16 +23,20 @@ public class CouponCUDService {
     private final CouponRepository couponRepository;
     private final CustomerRepository customerRepository;
     public void createCoupon(CreateCouponRequest request) {
-        List<Coupon> couponList  =  new ArrayList<>();
-        List<Customer> customerList = customerRepository.findAllById(request.getCustomerIdList());
+        Coupon coupon = Coupon.toEntity(request);
+        couponRepository.save(coupon);
+    }
 
-        if (request.getCustomerIdList().size() == 0){
-            throw new NoSuchElementException("회원이 존재하지 않습니다.");
-        }
 
-        for (Customer customer : customerList){
-            couponList.add(Coupon.toEntity(request.getCouponName(), customer,request.getValidityPeriod()));
-        }
-        couponRepository.saveAll(couponList);
+    public void updateCoupon(CouponUpdateRequest request) {
+        Coupon coupon = couponRepository.findById(request.getCouponId()).orElseThrow(
+                () -> new NoSuchElementException("존재하지 않는 쿠폰입니다.")
+        );
+
+        coupon.update(request);
+    }
+
+    public void deleteCoupon(Long couponId) {
+        couponRepository.deleteById(couponId);
     }
 }

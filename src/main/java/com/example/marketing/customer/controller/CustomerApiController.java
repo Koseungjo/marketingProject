@@ -18,21 +18,18 @@ public class CustomerApiController {
     private final CustomerCUDService customerCUDService;
     private final CustomerReadService customerReadService;
 
-    //TODO: 유저 생성
     @PostMapping("/customer")
     private ResponseDTO<CreateCustomerResponse> createCustomer(@RequestBody CreateCustomerRequest request){
         CreateCustomerResponse response = customerCUDService.createCustomer(request);
         return ResponseDTO.ok(response);
     }
 
-    //TODO: 유저 조회
     @GetMapping("/customers")
     private ResponseDTO<CustomerListResponse> getCustomerList(@ModelAttribute CustomerSearchRequest request, Pageable pageable){
        CustomerListResponse response = customerReadService.getCustomerList(request,pageable);
        return ResponseDTO.ok(response);
     }
 
-    //TODO: 유저 상세조회
     @GetMapping("/customer/{id}")
     private ResponseDTO<CustomerDetailResponse> getCustomerDetails(@PathVariable Long id){
         CustomerDetailResponse response = customerReadService.getCustomerDetails(id);

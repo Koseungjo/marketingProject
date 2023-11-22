@@ -1,6 +1,7 @@
 package com.example.marketing.customer.dto;
 
 import com.example.marketing.coupon.entity.Coupon;
+import com.example.marketing.coupon.entity.CouponIssuance;
 import com.example.marketing.customer.entity.Customer;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,7 +28,7 @@ public class CustomerDetailResponse {
     private String marketingSendYn;
     private LocalDateTime signUpDate;
     private String status;
-    private List<Coupon> coupons;
+    private List<CouponIssuance> couponIssuance;
 
     private CustomerDetailResponse(Customer customer) {
         this.id = customer.getCustomerId();
@@ -37,7 +39,7 @@ public class CustomerDetailResponse {
         this.marketingSendYn = customer.getMarketingSendYn();
         this.signUpDate = customer.getSignUpDate();
         this.status = customer.getStatus();
-        this.coupons = customer.getCoupons();
+        this.couponIssuance = customer.getCouponIssuance();
     }
 
     public static CustomerDetailResponse of(Customer customer){

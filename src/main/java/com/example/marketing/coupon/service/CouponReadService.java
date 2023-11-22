@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -20,7 +21,13 @@ public class CouponReadService {
     private final CouponRepository couponRepository;
     public CouponListResponse getCouponList(CouponListRequest request) {
         List<Coupon> couponList = couponRepository.findAllByCouponName(request.getCouponName());
-        List<CouponResponse> couponResponseList = couponList.stream().map(item -> CouponResponse.of(item)).collect(Collectors.toList());
-        return CouponListResponse.of(couponResponseList);
+        List<CouponResponse> couponResponseList = couponList.stream().map(item -> CouponResponse.from(item)).collect(Collectors.toList());
+        return CouponListResponse.from(couponResponseList);
+    }
+
+    public CouponResponse getCouponDetail(Long couponId) {
+        return CouponResponse.from(couponRepository.findById(couponId).orElseThrow(
+                () -> new NoSuchElementException("존재하지 않는 쿠폰입니다.")
+        ));
     }
 }

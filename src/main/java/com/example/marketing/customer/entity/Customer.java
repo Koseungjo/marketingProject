@@ -1,9 +1,8 @@
 package com.example.marketing.customer.entity;
 
-import com.example.marketing.coupon.entity.Coupon;
+import com.example.marketing.coupon.entity.CouponIssuance;
 import com.example.marketing.customer.dto.CreateCustomerRequest;
 import com.example.marketing.customer.global.CustomerStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -51,9 +50,9 @@ public class Customer {
     @Column(name = "status")
     private String status;
 
-    @OneToMany(mappedBy = "customer")
-    @JsonManagedReference
-    private List<Coupon> coupons = new ArrayList<>();
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private List<CouponIssuance> couponIssuance;
+
 
     public static Customer toEntity(CreateCustomerRequest request) {
         return Customer.builder()
